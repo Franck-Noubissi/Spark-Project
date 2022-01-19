@@ -2,6 +2,7 @@ package fr.compo;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import fr.compo.functions.FilterVille;
 import fr.compo.functions.GroupByAddressePostal;
 import fr.compo.reader.CsvFileReader;
 import fr.compo.reader.TextFileReader;
@@ -22,14 +23,18 @@ public class MainApp {
 
         CsvFileReader reader = new CsvFileReader(inputPathStr,sparkSession);
 
-        //Dataset<Row> ds = GroupByAddressePostal.builder().build().apply(lines);
-        //ds.show(false);
-
-
-        TextFileReader txtFR = new TextFileReader(inputFIle,sparkSession);
         CsvFileReader csvFileReader = new CsvFileReader(inputFIle,sparkSession);
         Dataset<Row> ds = csvFileReader.get();
+        // TextFileReader txtFR = new TextFileReader(inputFIle,sparkSession);
         // Dataset<Row> ds = txtFR.get();
+
+        //Dataset<Row> dt = GroupByAddressePostal.builder().build().apply(ds);
+        //dt.show(false);
+
+        //Dataset<Row> dt = FilterVille.builder().ville("Limoges").build().apply(ds);
+        //dt.show(false);
+
+
 
         ds.printSchema();
 
